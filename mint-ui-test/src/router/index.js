@@ -9,6 +9,7 @@ import Category from '@/views/category/Category'
 import Find from '@/views/find/Find'
 import ShopCart from '@/views/shopcart/ShopCart'
 import Me from '@/views/me/Me'
+import Search from '@/views/search/Search'
 
 Vue.use(Router)
 
@@ -46,6 +47,11 @@ const router = new Router({
           component: Me
         }
       ]
+    },
+    {
+      path: '/search',
+      name: 'Search',
+      component: Search
     }
   ]
 })

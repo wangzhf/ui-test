@@ -9,6 +9,9 @@ import store from './store'
 import MintUI from 'mint-ui'
 import 'mint-ui/lib/style.css'
 
+// common css
+import './styles/common.css'
+
 // icon-font
 import '../static/fonts/common.css'
 
