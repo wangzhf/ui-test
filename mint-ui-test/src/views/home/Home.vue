@@ -91,4 +91,22 @@ export default {
   left: 10px;
 }
 
+.mint-header .header-title {
+  flex: none;
+  width: auto;
+  background-color: white;
+  height: 14px;
+  position: absolute;
+  left: 40px;
+  right: 40px;
+  top: 0px;
+  color: rgb(61, 61, 61);
+  font-size: 12px;
+  vertical-align: middle;
+  padding: 6px 12px;
+  border-radius: 4px;
+  overflow: hidden;
+  text-align: left;
+  font-weight: 400;
+}
 </style>

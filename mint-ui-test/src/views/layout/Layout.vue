@@ -35,7 +35,21 @@ export default {
       selected: '0'
     }
   },
-
+  created () {
+    var path = this.$route.path
+    console.log(this.$route)
+    if (path === '/home') {
+      this.selected = '0'
+    } else if (path === '/category') {
+      this.selected = '1'
+    } else if (path === '/find') {
+      this.selected = '2'
+    } else if (path === '/shopcart') {
+      this.selected = '3'
+    } else if (path === '/me') {
+      this.selected = '4'
+    }
+  },
   watch: {
     selected (val, oldVal) {
       if (val === '0') {
