@@ -1,0 +1,62 @@
+$blue:#324157;
+$light-blue:#3A71A8;
+$red:#C03639;
+$pink: #E65D6E;
+$green: #30B08F;
+$tiffany: #4AB7BD;
+$yellow:#FEC171;
+$panGreen: #30B08F;
+
+//sidebar
+$menuBg:#304156;
+$subMenuBg:#1f2d3d;
+$menuHover:#001528;
+
+// default style value
+// side bar
+$sideBarWidth: 180px;
+$sideBarHideWidth: 36px;
+// menu item height
+$menuItemHeight: 56px;
+$submenuItemHeight: 50px;
+// nav bar height
+$navBarHeight: 50px;
+// user avatar
+$userAvatarWidth: 40px;
+$userAvatarHeight: 40px;
+// user avatar caret
+$userAvatarCaretTop: 25px;
+$userAvatarCaretRight: -20px;
+// theme switch vertical align
+$themeSwitchVerticalAlign: 15px;
+// screenfull svg vertical align
+$screenfullSvgVerticalAlign: 10px;
+// color-picker
+$colorPickerWidth: 36px;
+$colorPickerHeight: 36px;
+
+// custom layout style variables
+$style: mini;
+@if $style == mini {
+  // side bar
+  $sideBarWidth: 230px;
+  $sideBarHideWidth: 40px;
+  // menu item height
+  $menuItemHeight: 45px;
+  $submenuItemHeight: 40px;
+  // nav bar height
+  $navBarHeight: 40px;
+  // user avatar
+  $userAvatarWidth: 30px;
+  $userAvatarHeight: 30px;
+  // user avatar caret
+  $userAvatarCaretTop: 20px;
+  $userAvatarCaretRight: -14px;
+  // theme switch vertical align
+  $themeSwitchVerticalAlign: 12px;
+  // screenfull svg vertical align
+  $screenfullSvgVerticalAlign: 6px;
+  // color-picker
+  $colorPickerWidth: 30px;
+  $colorPickerHeight: 30px;
+}

@@ -18,7 +18,11 @@ exports.cssLoaders = function (options) {
   const cssLoader = {
     loader: 'css-loader',
     options: {
-      sourceMap: options.sourceMap
+      sourceMap: options.sourceMap,
+      // 开启 CSS Modules
+      modules: true,
+      // 自定义生成的类名
+      localIdentName: '[local]_[hash:base64:8]'
     }
   }
 

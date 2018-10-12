@@ -72,7 +72,7 @@ export default {
 }
 </script>
 
-<style>
+<style scoped>
 .cube-tab-bar {
   border-top: 1px solid #d3d3d3;
 }

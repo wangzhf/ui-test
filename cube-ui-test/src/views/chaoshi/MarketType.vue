@@ -87,7 +87,7 @@ export default {
 }
 </script>
 
-<style lang="stylus" rel="stylesheet/stylus">
+<style scoped lang="stylus" rel="stylesheet/stylus">
   .scroll-nav-side
     background-color: #fff
     .view-wrapper
@@ -119,8 +119,8 @@ export default {
       background-color: #fff
     .cube-scroll-nav-panel
       img
-        width: 100px
-        height: 114px
+        width: 90px
+        height: 100px
       ul
         overflow: hidden
         font-size: 14px
@@ -130,8 +130,9 @@ export default {
         float: left
         width: 50%
         text-align: center
+        margin-bottom: 8px
         div
-          width: 114px
+          width: 100%
           margin: auto
           p
             overflow: hidden

@@ -94,7 +94,7 @@ export default {
 }
 </script>
 
-<style>
+<style scoped>
 .content-container {
   background-color: #fff;
   width: 100%;
