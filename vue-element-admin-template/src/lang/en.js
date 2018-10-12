@@ -61,7 +61,9 @@ export default {
     theme: 'Theme',
     clipboardDemo: 'Clipboard',
     i18n: 'I18n',
-    externalLink: 'External Link'
+    externalLink: 'External Link',
+    system: 'System',
+    userManager: 'User Manager'
   },
   navbar: {
     logOut: 'Log Out',
@@ -151,5 +153,9 @@ export default {
     close: 'Close',
     closeOthers: 'Close Others',
     closeAll: 'Close All'
+  },
+
+  system: {
+    system: 'System'
   }
 }

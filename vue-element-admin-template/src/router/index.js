@@ -90,37 +90,17 @@ export const asyncRouterMap = [
     component: Layout,
     redirect: 'noredirect',
     alwaysShow: true,
+    name: 'System',
+    meta: {
+      title: 'system',
+      icon: 'user'
+    },
     children: [
       {
         path: 'users',
         component: () => import('@/views/system/user/index'),
-        name: 'User Manager',
-        meta: { title: 'User Manager', icon: 'peoples', roles: [] }
-      }
-    ]
-  },
-
-  {
-    path: '/theme',
-    component: Layout,
-    redirect: 'noredirect',
-    children: [
-      {
-        path: 'index',
-        component: () => import('@/views/common/theme/index'),
-        name: 'Theme',
-        meta: { title: 'theme', icon: 'theme' }
-      }
-    ]
-  },
-
-  {
-    path: 'external-link',
-    component: Layout,
-    children: [
-      {
-        path: 'https://github.com/PanJiaChen/vue-element-admin',
-        meta: { title: 'externalLink', icon: 'link' }
+        name: 'UserManager',
+        meta: { title: 'userManager', icon: 'peoples', roles: [] }
       }
     ]
   },

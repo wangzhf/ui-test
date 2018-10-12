@@ -61,7 +61,9 @@ export default {
     theme: '换肤',
     clipboardDemo: 'Clipboard',
     i18n: '国际化',
-    externalLink: '外链'
+    externalLink: '外链',
+    system: '系统管理',
+    userManager: '用户管理'
   },
   navbar: {
     logOut: '退出登录',
@@ -151,5 +153,9 @@ export default {
     close: '关闭',
     closeOthers: '关闭其它',
     closeAll: '关闭所有'
+  },
+
+  system: {
+    UserManager: '用户管理'
   }
 }
