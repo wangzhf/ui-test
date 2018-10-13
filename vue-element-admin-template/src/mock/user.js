@@ -16,9 +16,6 @@ for (let i = 0; i < 101; i++) {
 
 export default {
   getUserList: params => {
-    // console.log(Users)
-    console.log(params)
-    // console.log(pp)
     const data = JSON.parse(params.body)
     const userName = data.userName
     const userCode = data.userCode
@@ -64,9 +61,7 @@ export default {
   },
 
   deleteUser: params => {
-    console.log(params)
     const data = JSON.parse(params.body)
-    console.log(data)
     for (let i = 0; i < Users.length; i++) {
       if (Users[i].id === data.id) {
         Users.splice(i, 1)

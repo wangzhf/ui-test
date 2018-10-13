@@ -1,15 +1,15 @@
 <template>
   <div class="content-container">
-    <el-form ref="form" :inline="true" :model="userInfo" label-width="80px" size="mini">
+    <el-form ref="form" :inline="true" :model="roleInfo" label-width="80px" size="mini">
       <el-row>
         <el-col :span="8">
-          <el-form-item label="用户姓名">
-            <el-input v-model="userInfo.userName" />
+          <el-form-item label="角色姓名">
+            <el-input v-model="roleInfo.roleName" />
           </el-form-item>
         </el-col>
         <el-col :span="8">
-          <el-form-item label="用户代码">
-            <el-input v-model="userInfo.userCode" />
+          <el-form-item label="角色代码">
+            <el-input v-model="roleInfo.roleCode" />
           </el-form-item>
         </el-col>
         <el-col :span="8">
@@ -29,7 +29,7 @@
 
     <el-table
       ref="multipleTable"
-      :data="userList"
+      :data="roleList"
       :border="true"
       :highlight-current-row="true"
       tooltip-effect="dark"
@@ -38,12 +38,8 @@
     >
       <el-table-column type="selection" align="center" width="40" />
       <el-table-column type="index" label="序号" width="60" />
-      <el-table-column prop="userName" label="姓名" width="80" sortable />
-      <el-table-column prop="userCode" label="代码" width="80" sortable />
-      <el-table-column :formatter="formatSex" prop="sex" label="性别" width="70" sortable />
-      <el-table-column prop="age" label="年龄" width="80" sortable />
-      <el-table-column prop="birthday" label="生日" width="120" sortable />
-      <el-table-column prop="address" label="地址" sortable />
+      <el-table-column prop="roleName" label="角色名称" sortable />
+      <el-table-column prop="roleCode" label="角色代码" sortable />
       <el-table-column label="操作" width="150">
         <template slot-scope="scope">
           <el-button
@@ -72,26 +68,11 @@
     <!--编辑界面-->
     <el-dialog :visible.sync="editFormVisible" :close-on-click-modal="false" title="编辑">
       <el-form ref="editForm" :model="editForm" :rules="editFormRules" label-width="80px">
-        <el-form-item label="姓名" prop="userName">
-          <el-input v-model="editForm.userName" auto-complete="off" />
+        <el-form-item label="姓名" prop="roleName">
+          <el-input v-model="editForm.roleName" auto-complete="off" />
         </el-form-item>
         <el-form-item label="代码">
-          <el-input v-model="editForm.userCode" auto-complete="off" />
-        </el-form-item>
-        <el-form-item label="性别">
-          <el-radio-group v-model="editForm.sex">
-            <el-radio :label="1" class="radio">男</el-radio>
-            <el-radio :label="0" class="radio">女</el-radio>
-          </el-radio-group>
-        </el-form-item>
-        <el-form-item label="年龄">
-          <el-input-number v-model="editForm.age" :min="0" :max="200" />
-        </el-form-item>
-        <el-form-item label="生日">
-          <el-date-picker v-model="editForm.birthday" type="date" placeholder="选择日期" />
-        </el-form-item>
-        <el-form-item label="地址">
-          <el-input v-model="editForm.address" type="textarea" />
+          <el-input v-model="editForm.roleCode" auto-complete="off" />
         </el-form-item>
       </el-form>
       <div slot="footer" class="dialog-footer">
@@ -103,26 +84,11 @@
     <!--新增界面-->
     <el-dialog :visible.sync="addFormVisible" :close-on-click-modal="false" title="新增">
       <el-form ref="addForm" :model="addForm" :rules="addFormRules" label-width="80px">
-        <el-form-item label="姓名" prop="userName">
-          <el-input v-model="addForm.userName" auto-complete="off" />
+        <el-form-item label="姓名" prop="roleName">
+          <el-input v-model="addForm.roleName" auto-complete="off" />
         </el-form-item>
         <el-form-item label="代码">
-          <el-input v-model="addForm.userCode" auto-complete="off" />
-        </el-form-item>
-        <el-form-item label="性别">
-          <el-radio-group v-model="addForm.sex">
-            <el-radio :label="1" class="radio">男</el-radio>
-            <el-radio :label="0" class="radio">女</el-radio>
-          </el-radio-group>
-        </el-form-item>
-        <el-form-item label="年龄">
-          <el-input-number v-model="addForm.age" :min="0" :max="200" />
-        </el-form-item>
-        <el-form-item label="生日">
-          <el-date-picker v-model="addForm.birthday" type="date" placeholder="选择日期" />
-        </el-form-item>
-        <el-form-item label="地址">
-          <el-input v-model="addForm.address" type="textarea" />
+          <el-input v-model="addForm.roleCode" auto-complete="off" />
         </el-form-item>
       </el-form>
       <div slot="footer" class="dialog-footer">
@@ -134,18 +100,17 @@
 </template>
 
 <script>
-import { getUserList, editUser, deleteUser, addUser, batchDeleteUser } from '@/api/system/user'
-import { parseTime } from '@/utils'
+import { getRoleList, editRole, deleteRole, addRole, batchDeleteRole } from '@/api/system/role'
 
 export default {
-  name: 'UserManager',
+  name: 'RoleManager',
   data() {
     return {
-      userInfo: {
-        userName: '',
-        userCode: ''
+      roleInfo: {
+        roleName: '',
+        roleCode: ''
       },
-      userList: [],
+      roleList: [],
       multipleSelection: [],
       total: 0,
       currentPage: 1,
@@ -154,36 +119,28 @@ export default {
       // 编辑界面是否显示
       editFormVisible: false,
       editFormRules: {
-        userName: [
+        roleName: [
           { required: true, message: '请输入姓名', trigger: 'blur' }
         ]
       },
       // 编辑界面数据
       editForm: {
         id: 0,
-        userName: '',
-        userCode: '',
-        sex: -1,
-        age: 0,
-        birthday: '',
-        address: ''
+        roleName: '',
+        roleCode: ''
       },
 
       // 新增界面是否显示
       addFormVisible: false,
       addFormRules: {
-        userName: [
+        roleName: [
           { required: true, message: '请输入姓名', trigger: 'blur' }
         ]
       },
       // 新增界面数据
       addForm: {
-        userName: '',
-        userCode: '',
-        sex: -1,
-        age: 0,
-        birthday: '',
-        address: ''
+        roleName: '',
+        roleCode: ''
       }
     }
   },
@@ -193,28 +150,24 @@ export default {
     }
   },
   created() {
-    this.getUser()
+    this.getRole()
   },
   methods: {
     search() {
-      this.getUser()
+      this.getRole()
     },
-    getUser() {
+    getRole() {
       const param = {
         currentPage: this.currentPage,
         pageSize: this.pageSize,
-        userName: this.userInfo.userName,
-        userCode: this.userInfo.userCode
+        roleName: this.roleInfo.roleName,
+        roleCode: this.roleInfo.roleCode
       }
-      getUserList(param).then((res) => {
+      getRoleList(param).then((res) => {
         console.log(res)
-        this.userList = res.data.users
+        this.roleList = res.data.roles
         this.total = res.data.total
       })
-    },
-    // 性别显示转换
-    formatSex: function(row, column) {
-      return row.sex === 1 ? '男' : row.sex === 0 ? '女' : '未知'
     },
     handleSelectionChange(val) {
       this.multipleSelection = val
@@ -228,33 +181,29 @@ export default {
         type: 'warning'
       }).then(() => {
         const param = { id: row.id }
-        deleteUser(param).then(res => {
+        deleteRole(param).then(res => {
           this.$message({
             message: '删除成功',
             type: 'success'
           })
-          this.getUser()
+          this.getRole()
         })
       })
     },
     handleSizeChange(val) {
       this.pageSize = val
-      this.getUser()
+      this.getRole()
     },
     handleCurrentChange(val) {
       this.currentPage = val
-      this.getUser()
+      this.getRole()
     },
     // 新增
     handleAdd() {
       this.addFormVisible = true
       this.addForm = {
-        userName: '',
-        userCode: '',
-        sex: -1,
-        age: 0,
-        birthday: '',
-        address: ''
+        roleName: '',
+        roleCode: ''
       }
     },
     // 编辑
@@ -263,15 +212,14 @@ export default {
         if (valid) {
           this.$confirm('确认提交吗？', '提示', {}).then(() => {
             const param = Object.assign({}, this.editForm)
-            param.birthday = parseTime(param.birthday, '{y}-{m}-{d}')
-            editUser(param).then(res => {
+            editRole(param).then(res => {
               this.$message({
                 message: '修改成功',
                 type: 'success'
               })
               this.$refs['editForm'].resetFields()
               this.editFormVisible = false
-              this.getUser()
+              this.getRole()
             })
           })
         }
@@ -282,15 +230,14 @@ export default {
         if (valid) {
           this.$confirm('确认提交吗？', '提示', {}).then(() => {
             const param = Object.assign({}, this.addForm)
-            param.birthday = parseTime(param.birthday, '{y}-{m}-{d}')
-            addUser(param).then(res => {
+            addRole(param).then(res => {
               this.$message({
                 message: '提交成功',
                 type: 'success'
               })
               this.$refs['addForm'].resetFields()
               this.addFormVisible = false
-              this.getUser()
+              this.getRole()
             })
           })
         }
@@ -303,18 +250,18 @@ export default {
         type: 'warning'
       }).then(() => {
         const param = { ids: ids }
-        batchDeleteUser(param).then(res => {
+        batchDeleteRole(param).then(res => {
           this.$message({
             message: '删除成功',
             type: 'success'
           })
-          this.getUser()
+          this.getRole()
         })
       })
     },
     reset() {
-      this.userInfo.userName = ''
-      this.userInfo.userCode = ''
+      this.roleInfo.roleName = ''
+      this.roleInfo.roleCode = ''
     }
   }
 }

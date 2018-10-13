@@ -63,7 +63,8 @@ export default {
     i18n: '国际化',
     externalLink: '外链',
     system: '系统管理',
-    userManager: '用户管理'
+    userManager: '用户管理',
+    roleManager: '角色管理'
   },
   navbar: {
     logOut: '退出登录',

@@ -63,7 +63,8 @@ export default {
     i18n: 'I18n',
     externalLink: 'External Link',
     system: 'System',
-    userManager: 'User Manager'
+    userManager: 'User Manager',
+    roleManager: 'Role Manager'
   },
   navbar: {
     logOut: 'Log Out',
