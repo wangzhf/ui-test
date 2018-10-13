@@ -97,3 +97,7 @@
   height: $submenuItemHeight;
   line-height: $submenuItemHeight;
 }
+// 隐藏时菜单高度
+.el-menu--popup {
+  padding: $menuPopPadding;
+}
