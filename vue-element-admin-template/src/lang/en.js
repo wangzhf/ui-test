@@ -64,7 +64,8 @@ export default {
     externalLink: 'External Link',
     system: 'System',
     userManager: 'User Manager',
-    roleManager: 'Role Manager'
+    roleManager: 'Role Manager',
+    resourceManager: 'Resource Manager'
   },
   navbar: {
     logOut: 'Log Out',

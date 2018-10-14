@@ -2,6 +2,7 @@ import Mock from 'mockjs'
 import loginAPI from './login'
 import userAPI from './user'
 import roleAPI from './role'
+import resourceAPI from './resource'
 
 Mock.setup({
   timeout: '350-600'
@@ -25,5 +26,12 @@ Mock.mock(/\/role\/edit/, 'post', roleAPI.editRole)
 Mock.mock(/\/role\/delete/, 'post', roleAPI.deleteRole)
 Mock.mock(/\/role\/add/, 'post', roleAPI.addRole)
 Mock.mock(/\/role\/batchDelete/, 'post', roleAPI.batchDelete)
+
+// 资源管理
+Mock.mock(/\/resource\/list/, 'post', resourceAPI.getReourceList)
+Mock.mock(/\/resource\/update/, 'post', resourceAPI.editReource)
+Mock.mock(/\/resource\/delete/, 'post', resourceAPI.deleteReource)
+Mock.mock(/\/resource\/add/, 'post', resourceAPI.addReource)
+Mock.mock(/\/resource\/batchDelete/, 'post', resourceAPI.batchDelete)
 
 export default Mock
