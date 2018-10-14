@@ -102,6 +102,7 @@ export default {
 .navbar {
   height: $navBarHeight;
   line-height: $navBarHeight;
+  border-bottom: $borderStyle;
   border-radius: 0px !important;
   .hamburger-container {
     line-height: $navBarHeight + 8px;

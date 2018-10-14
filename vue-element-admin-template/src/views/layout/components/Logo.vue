@@ -29,6 +29,7 @@ export default {
   height: $navBarHeight;
   width: 100%;
   background-color: white;
+  border-bottom: $borderStyle;
   p {
     height: $navBarHeight;
     width: 100%;

@@ -135,8 +135,10 @@ export default {
 </script>
 
 <style rel="stylesheet/scss" lang="scss" scoped>
+@import '@/styles/variables.scss';
+
 .tags-view-container {
-  height: 34px;
+  height: $tagHeight;
   width: 100%;
   background: #fff;
   border-bottom: 1px solid #d8dce5;
@@ -153,8 +155,10 @@ export default {
       background: #fff;
       padding: 0 8px;
       font-size: 12px;
-      margin-left: 5px;
+      margin-left: $tagItemMargin;
       margin-top: 4px;
+      border-top-left-radius: $tagTopRadius;
+      border-top-right-radius: $tagTopRadius;
       &:first-of-type {
         margin-left: 15px;
       }
@@ -162,18 +166,18 @@ export default {
         margin-right: 15px;
       }
       &.active {
-        background-color: #42b983;
+        background-color: $tagActiveBg;
         color: #fff;
-        border-color: #42b983;
-        &::before {
-          content: '';
-          background: #fff;
-          display: inline-block;
-          width: 8px;
-          height: 8px;
-          border-radius: 50%;
-          position: relative;
-          margin-right: 2px;
+        border-color: $tagActiveBg;
+        &::before{
+          @each $key, $val in $tagActiveBefore{
+            #{$key}: $val;
+          }
+        };
+        &::after {
+          @each $key, $val in $tagActiveAfter{
+            #{$key}: $val;
+          }
         }
       }
     }
@@ -202,7 +206,9 @@ export default {
 }
 </style>
 
-<style rel="stylesheet/scss" lang="scss">
+<style rel="stylesheet/scss" lang="scss" scoped>
+@import '@/styles/variables.scss';
+
 //reset element css of el-icon-close
 .tags-view-wrapper {
   .tags-view-item {
@@ -215,12 +221,13 @@ export default {
       transition: all .3s cubic-bezier(.645, .045, .355, 1);
       transform-origin: 100% 50%;
       &:before {
+        font-size: 16px;
         transform: scale(.6);
         display: inline-block;
         vertical-align: -3px;
       }
       &:hover {
-        background-color: #b4bccc;
+        background-color: $tagCloseHoverBg;
         color: #fff;
       }
     }
