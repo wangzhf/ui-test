@@ -37,15 +37,15 @@ export default {
     return resourceList
   },
   editReource: config => {
-
+    console.log('edit operator')
   },
   deleteReource: config => {
-
+    console.log('delete operator')
   },
   addReource: config => {
-
+    console.log('add operator')
   },
   batchDelete: config => {
-
+    console.log('batch delet operator')
   }
 }
