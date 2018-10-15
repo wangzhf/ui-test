@@ -1,5 +1,5 @@
 
-const resourceList = [{ 'id': 52, 'parentId': null, 'sort': 0, 'name': '登录', 'code': '/login', 'type': 3, 'usable': '1', 'remarks': '', 'children': [] },
+let resourceList = [{ 'id': 52, 'parentId': null, 'sort': 0, 'name': '登录', 'code': '/login', 'type': 3, 'usable': '1', 'remarks': '', 'children': [] },
   { 'id': 68, 'parentId': null, 'sort': 0, 'name': '仪表盘', 'code': '/index', 'type': 1, 'usable': '1', 'remarks': '', 'children': [] },
   { 'id': 69, 'parentId': null, 'sort': 0, 'name': '系统管理', 'code': '/sys', 'type': 1, 'usable': '1', 'remarks': '', 'children': [{ 'id': 82, 'parentId': 69, 'sort': 0, 'name': '资源管理', 'code': '/sys/resource', 'type': 1, 'usable': '1', 'remarks': '', 'children': [{ 'id': 99, 'parentId': 82, 'sort': 0, 'name': '/sys/resource/get', 'code': '/sys/resource/get', 'type': 3, 'usable': '1', 'remarks': '', 'children': [] },
     { 'id': 100, 'parentId': 82, 'sort': 0, 'name': '/sys/resource/update', 'code': '/sys/resource/update', 'type': 3, 'usable': '1', 'remarks': '', 'children': [] },
@@ -37,15 +37,35 @@ export default {
     return resourceList
   },
   editReource: config => {
-    console.log('edit operator')
+    const param = JSON.parse(config.body)
+    resourceList = recursionOperate(param, resourceList)
+    console.log(resourceList)
+    return resourceList
   },
   deleteReource: config => {
-    console.log('delete operator')
+    return resourceList
   },
   addReource: config => {
-    console.log('add operator')
+    return resourceList
   },
   batchDelete: config => {
-    console.log('batch delet operator')
+    return resourceList
   }
+}
+
+function recursionOperate(obj, arr) {
+  for (let i = 0; i < arr.length; i++) {
+    const tar = arr[i]
+    if (obj.id === tar.id) {
+      arr[i] = obj
+      return arr
+    } else {
+      if (tar.children && tar.children.length > 0) {
+        const tmp = recursionOperate(obj, tar.children)
+        arr[i].children = tmp
+        return arr
+      }
+    }
+  }
+  return []
 }
