@@ -65,7 +65,9 @@ export default {
     system: '系统管理',
     userManager: '用户管理',
     roleManager: '角色管理',
-    resourceManager: '资源管理'
+    resourceManager: '资源管理',
+    roleUserManager: '角色用户管理',
+    roleResourceManager: '角色资源管理'
   },
   navbar: {
     logOut: '退出登录',
