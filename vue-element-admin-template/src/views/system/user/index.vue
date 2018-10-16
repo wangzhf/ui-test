@@ -21,6 +21,7 @@
       </el-row>
       <el-row>
         <el-col>
+          <el-button type="primary" @click="handleChildExpand" v-text="childExpandText" />
           <el-button type="primary" @click="handleAdd">新增</el-button>
           <el-button :disabled="disabledBatchBtn" type="primary" size="mini" @click="batchDelete">批量删除</el-button>
         </el-col>
@@ -32,27 +33,49 @@
       :data="userList"
       :border="true"
       :highlight-current-row="true"
+      :expand-row-keys="expandRowKeys"
+      row-key="id"
       tooltip-effect="dark"
       class="tab-container"
       @selection-change="handleSelectionChange"
+      @row-click="handleRowClick"
+      @expand-change="handleRowChange"
     >
+      <el-table-column type="expand">
+        <template slot-scope="props">
+          <el-form label-position="left" inline class="child-table-expand">
+            <el-form-item :formatter="formatSex" :span="childColumnWidth" label="性别">
+              <span>{{ props.row.sex }}</span>
+            </el-form-item>
+            <el-form-item :span="childColumnWidth" label="年龄">
+              <span>{{ props.row.age }}</span>
+            </el-form-item>
+            <el-form-item :span="childColumnWidth" label="生日">
+              <span>{{ props.row.birthday }}</span>
+            </el-form-item>
+            <el-form-item :span="childColumnWidth" label="地址">
+              <span>{{ props.row.address }}</span>
+            </el-form-item>
+          </el-form>
+        </template>
+      </el-table-column>
       <el-table-column type="selection" align="center" width="40" />
       <el-table-column type="index" label="序号" width="60" />
-      <el-table-column prop="userName" label="姓名" width="80" sortable />
-      <el-table-column prop="userCode" label="代码" width="80" sortable />
-      <el-table-column :formatter="formatSex" prop="sex" label="性别" width="70" sortable />
+      <el-table-column prop="userName" label="姓名" sortable />
+      <el-table-column prop="userCode" label="代码" sortable />
+      <!-- <el-table-column :formatter="formatSex" prop="sex" label="性别" width="70" sortable />
       <el-table-column prop="age" label="年龄" width="80" sortable />
       <el-table-column prop="birthday" label="生日" width="120" sortable />
-      <el-table-column prop="address" label="地址" sortable />
+      <el-table-column prop="address" label="地址" sortable /> -->
       <el-table-column label="操作" width="150">
         <template slot-scope="scope">
           <el-button
             size="mini"
-            @click="handleEdit(scope.$index, scope.row)">编辑</el-button>
+            @click.stop="handleEdit(scope.$index, scope.row)">编辑</el-button>
           <el-button
             size="mini"
             type="danger"
-            @click="handleDelete(scope.$index, scope.row)">删除</el-button>
+            @click.stop="handleDelete(scope.$index, scope.row)">删除</el-button>
         </template>
       </el-table-column>
     </el-table>
@@ -184,12 +207,23 @@ export default {
         age: 0,
         birthday: '',
         address: ''
-      }
+      },
+      childColumnWidth: 4,
+      // 控制是否展开行
+      childRowExpand: false,
+      expandRowKeys: []
     }
   },
   computed: {
     disabledBatchBtn() {
       return this.multipleSelection.length === 0
+    },
+    childExpandText() {
+      if (this.expandRowKeys && this.expandRowKeys.length > 0) {
+        return '关闭所有行'
+      } else {
+        return '展开所有行'
+      }
     }
   },
   created() {
@@ -315,6 +349,30 @@ export default {
     reset() {
       this.userInfo.userName = ''
       this.userInfo.userCode = ''
+    },
+    handleChildExpand() {
+      if (this.expandRowKeys.length > 0) {
+        this.expandRowKeys = []
+      } else {
+        if (this.userList && this.userList.length > 0) {
+          for (let i = 0; i < this.userList.length; i++) {
+            this.expandRowKeys.push(this.userList[i].id)
+          }
+        }
+      }
+    },
+    handleRowClick(row) {
+      console.log(row)
+      this.$refs.multipleTable.toggleRowExpansion(row)
+    },
+    handleRowChange(row, expandedRows) {
+      if (expandedRows.length > 0) {
+        this.expandRowKeys = expandedRows.map(function(val) {
+          return val.id
+        })
+      } else {
+        this.expandRowKeys = []
+      }
     }
   }
 }
@@ -330,5 +388,17 @@ export default {
   margin-bottom: 30px;
   height: 100px;
 
+}
+.child-table-expand {
+  font-size: 0;
+}
+.child-table-expand label {
+  width: 90px;
+  color: #99a9bf;
+}
+.child-table-expand .el-form-item {
+  margin-right: 0;
+  margin-bottom: 0;
+  width: 50%;
 }
 </style>
