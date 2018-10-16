@@ -16,6 +16,14 @@ export const deleteResource = params => {
   })
 }
 
+export const batchDeleteResource = params => {
+  return request({
+    url: '/resource/batchDelete',
+    method: 'post',
+    data: params
+  })
+}
+
 export const addResource = params => {
   return request({
     url: '/resource/add',

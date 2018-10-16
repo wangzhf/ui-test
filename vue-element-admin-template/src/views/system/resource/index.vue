@@ -1,5 +1,9 @@
 <template>
   <div class="content-container">
+    <el-row style="margin-left: 10px;">
+      <el-button size="small" type="primary" @click="newAdd" v-text="'新增'" />
+      <el-button size="small" type="danger" @click="batchDelete" v-text="'删除'" />
+    </el-row>
     <el-row slot="body" :gutter="24" class="tree-area">
       <el-col :span="6" :xs="24" :sm="24" :md="6" :lg="6" style="margin-bottom: 20px">
         <el-input
@@ -13,6 +17,8 @@
           :data="resourceTree"
           :render-content="renderContent"
           :props="defaultProps"
+          :default-expanded-keys="defaultExpandIds"
+          :filter-node-method="filterNode"
           show-checkbox
           highlight-current
           node-key="id"
@@ -23,11 +29,6 @@
       </el-col>
       <el-col :span="18" :xs="24" :sm="24" :md="18" :lg="18">
         <el-card class="box-card">
-          <!--<div slot="header" class="clearfix">-->
-          <!--<el-button type="primary" style="float: right" @click="dialogFormVisible = true"><i class="el-icon-plus"></i></el-button>-->
-          <!--&lt!&ndash<el-button type="primary" @click="editSelectedMenu" icon="edit"></el-button>&ndash&gt-->
-          <!--&lt!&ndash<el-button type="primary" @click="deleteSelectedMenu" icon="delete"></el-button>&ndash&gt-->
-          <!--</div>-->
           <div class="text item">
             <el-form ref="form" :model="form">
               <el-form-item :label-width="formLabelWidth" label="父级">
@@ -90,6 +91,7 @@ export default {
     return {
       filterText: '',
       formLabelWidth: '100px',
+      defaultExpandIds: [],
       defaultProps: {
         children: 'children',
         label: 'name',
@@ -120,7 +122,7 @@ export default {
   methods: {
     filterNode(value, data) {
       if (!value) return true
-      return data.label.indexOf(value) !== -1
+      return data.name.indexOf(value) !== -1
     },
     newAdd() {
       this.form = {
@@ -143,14 +145,22 @@ export default {
         </span>)
     },
     deleteSelected() {
-      const params = { resIds: this.form.id }
+      const params = { resId: this.form.id }
       resourceAPI.deleteResource(params).then(res => {
-        this.$message('操作成功')
-        this.deleteFromTree(this.resourceTree, this.form.id)
+        this.$message({
+          type: 'success',
+          message: '操作成功'
+        })
+        const tmp = merge([], this.resourceTree)
+        this.deleteFromTree(tmp, this.form.id)
+        this.resourceTree = tmp
         this.newAdd()
       }).catch(err => {
         console.log(err)
-        this.$message('操作失败')
+        this.$message({
+          type: 'error',
+          message: '操作失败'
+        })
       })
     },
     batchDelete() {
@@ -164,15 +174,20 @@ export default {
         cancelButtonText: '取消',
         type: 'warning'
       }).then(() => {
-        const params = { resId: checkKeys.join(',') }
-        resourceAPI.deleteResource(params).then(res => {
-          this.$message('操作成功')
+        const params = { resIds: checkKeys.join(',') }
+        resourceAPI.batchDeleteResource(params).then(res => {
+          this.$message({
+            message: '操作成功',
+            type: 'success'
+          })
           this.load()
         }).catch(err => {
-          this.$message('操作成功')
+          this.$message({
+            type: 'error',
+            message: '操作失败'
+          })
           console.log(checkKeys)
           console.log(err)
-          this.batchDeleteFromTree(this.resourceTree, checkKeys)
         })
       })
     },
@@ -187,29 +202,15 @@ export default {
             type: 'success'
           })
           this.form.id = res.data.id
-          this.appendTreeNode(this.resourceTree, res.data)
+          const tmp = merge([], this.resourceTree)
+          this.appendTreeNode(tmp, res.data)
+          this.resourceTree = tmp
         }).catch(err => {
           console.log(err)
-          this.maxId += 1
           this.$message({
             message: '操作失败',
             type: 'error'
           })
-          this.form.id = this.maxId
-          var ddd = {
-            id: this.form.id,
-            name: this.form.name,
-            sort: this.form.sort,
-            type: this.form.type,
-            code: this.form.code,
-            remarks: this.form.remarks,
-            parentId: this.form.parentId,
-            usable: this.form.usable,
-            children: []
-          }
-          this.appendTreeNode(this.resourceTree, ddd)
-          this.resourceTree.push({})
-          this.resourceTree.pop()
         })
       } else {
         resourceAPI.updateResource(this.form).then(res => {
@@ -217,16 +218,15 @@ export default {
             message: '操作成功',
             type: 'success'
           })
-          console.log(res)
-          this.updateTreeNode(this.resourceTree, res.data)
-          this.resourceTree = res.data
+          const tmp = merge([], this.resourceTree)
+          this.updateTreeNode(tmp, this.form)
+          this.resourceTree = tmp
         }).catch(err => {
           console.log(err)
           this.$message({
             message: '操作失败',
             type: 'error'
           })
-          this.updateTreeNode(this.resourceTree, merge({}, this.form))
         })
       }
     },

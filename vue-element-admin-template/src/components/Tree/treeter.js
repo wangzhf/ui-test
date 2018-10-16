@@ -77,7 +77,8 @@ const updateTreeNode = (list, item, idPropName = 'id', childrenPropName = 'child
   for (var i = 0; i < list.length; i++) {
     if (list[i][idPropName] === item[idPropName]) {
       console.log(list[i][idPropName], item[idPropName])
-      list.splice(i, 1, item)
+      // list.splice(i, 1, item)
+      list[i] = item
       return true
     } else {
       const result = updateTreeNode(list[i][childrenPropName], item, idPropName, childrenPropName)

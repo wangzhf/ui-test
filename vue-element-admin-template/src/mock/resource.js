@@ -1,3 +1,4 @@
+import Mock from 'mockjs'
 
 let resourceList = [{ 'id': 52, 'parentId': null, 'sort': 0, 'name': '登录', 'code': '/login', 'type': 3, 'usable': '1', 'remarks': '', 'children': [] },
   { 'id': 68, 'parentId': null, 'sort': 0, 'name': '仪表盘', 'code': '/index', 'type': 1, 'usable': '1', 'remarks': '', 'children': [] },
@@ -38,22 +39,71 @@ export default {
   },
   editReource: config => {
     const param = JSON.parse(config.body)
-    resourceList = recursionOperate(param, resourceList)
-    console.log(resourceList)
+    resourceList = updateList(param, resourceList)
     return resourceList
   },
   deleteReource: config => {
-    return resourceList
+    const { resId } = JSON.parse(config.body)
+    resourceList = deleteList(resId, resourceList)
+    return resId
   },
   addReource: config => {
-    return resourceList
+    const param = JSON.parse(config.body)
+    const minStep = Mock.Random.integer(1000)
+    const newId = Mock.mock({ 'id|+1': minStep }).id
+    param.id = newId
+    resourceList = addList(param, resourceList)
+    return param
   },
   batchDelete: config => {
-    return resourceList
+    const { resIds } = JSON.parse(config.body)
+    const idArr = resIds.split(',')
+    for (let i = 0; i < idArr.length; i++) {
+      resourceList = deleteList(idArr[i], resourceList)
+    }
+    return resIds
   }
 }
 
-function recursionOperate(obj, arr) {
+function deleteList(id, arr) {
+  for (let i = 0; i < arr.length; i++) {
+    const tar = arr[i]
+    if (parseInt(id) === tar.id) {
+      arr.splice(i, 1)
+      return arr
+    } else {
+      if (tar.children && tar.children.length > 0) {
+        const tmp = deleteList(id, tar.children)
+        arr[i].children = tmp
+        return arr
+      }
+    }
+  }
+  return []
+}
+
+function addList(obj, arr) {
+  for (let i = 0; i < arr.length; i++) {
+    const tar = arr[i]
+    if (obj.parentId === tar.id) {
+      if (tar.children && tar.children.length > 0) {
+        tar.children.push(obj)
+      } else {
+        tar.children = [obj]
+      }
+      return arr
+    } else {
+      if (tar.children && tar.children.length > 0) {
+        const tmp = addList(obj, tar.children)
+        arr[i].children = tmp
+        return arr
+      }
+    }
+  }
+  return []
+}
+
+function updateList(obj, arr) {
   for (let i = 0; i < arr.length; i++) {
     const tar = arr[i]
     if (obj.id === tar.id) {
@@ -61,7 +111,7 @@ function recursionOperate(obj, arr) {
       return arr
     } else {
       if (tar.children && tar.children.length > 0) {
-        const tmp = recursionOperate(obj, tar.children)
+        const tmp = updateList(obj, tar.children)
         arr[i].children = tmp
         return arr
       }
