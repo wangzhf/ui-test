@@ -6,7 +6,7 @@
     <el-row :gutter="20" style="margin-top: 20px;">
       <el-col :span="elColWidth" :xs="24" :sm="24" :md="elColWidth" :lg="elColWidth" class="content-area">
         <el-row :gutter="20">
-          <el-col :span="12">
+          <el-col :span="13">
             <el-form ref="form1" inline>
               <el-form-item label="用户">
                 <el-input
@@ -40,7 +40,7 @@
       </el-col>
       <el-col :span="elColWidth" :xs="24" :sm="24" :md="elColWidth" :lg="elColWidth" class="content-area">
         <el-row :gutter="20">
-          <el-col :span="12">
+          <el-col :span="13">
             <el-form ref="form2" inline>
               <el-form-item label="角色">
                 <el-input

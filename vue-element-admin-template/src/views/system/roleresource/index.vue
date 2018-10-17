@@ -7,7 +7,7 @@
       <el-col :span="1"/>
       <el-col :span="elColWidth" :xs="24" :sm="24" :md="elColWidth" :lg="elColWidth" class="content-area">
         <el-row :gutter="20">
-          <el-col :span="12">
+          <el-col :span="13">
             <el-form ref="form1" inline>
               <el-form-item label="资源">
                 <el-input
@@ -42,7 +42,7 @@
       <el-col :span="2" />
       <el-col :span="elColWidth" :xs="24" :sm="24" :md="elColWidth" :lg="elColWidth" class="content-area">
         <el-row :gutter="20">
-          <el-col :span="12">
+          <el-col :span="13">
             <el-form ref="form2" inline>
               <el-form-item label="角色">
                 <el-input
