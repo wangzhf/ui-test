@@ -253,7 +253,7 @@ export default {
   .resource-tree {
     margin-top: 10px;
     height: 384px;
-    overflow-y: scroll;
+    overflow-y: auto;
   }
 
   .el-tree {
