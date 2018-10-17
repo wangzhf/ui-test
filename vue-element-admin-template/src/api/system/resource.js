@@ -39,3 +39,12 @@ export const updateResource = params => {
     data: params
   })
 }
+
+// 角色资源分配
+export const assignRole = params => {
+  return request({
+    url: '/roleresource/add',
+    method: 'post',
+    data: params
+  })
+}

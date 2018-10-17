@@ -3,6 +3,8 @@ import loginAPI from './login'
 import userAPI from './user'
 import roleAPI from './role'
 import resourceAPI from './resource'
+import roleuserAPI from './roleuser'
+import roleresourceAPI from './roleresource'
 
 Mock.setup({
   timeout: '350-600'
@@ -33,5 +35,11 @@ Mock.mock(/\/resource\/update/, 'post', resourceAPI.editReource)
 Mock.mock(/\/resource\/delete/, 'post', resourceAPI.deleteReource)
 Mock.mock(/\/resource\/add/, 'post', resourceAPI.addReource)
 Mock.mock(/\/resource\/batchDelete/, 'post', resourceAPI.batchDelete)
+
+// 角色用户分配
+Mock.mock(/\/roleuser\/add/, 'post', roleuserAPI.addRoleUser)
+
+// 角色资源分配
+Mock.mock(/\/roleresource\/add/, 'post', roleresourceAPI.addRoleResource)
 
 export default Mock

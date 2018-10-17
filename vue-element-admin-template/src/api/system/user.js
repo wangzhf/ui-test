@@ -39,3 +39,12 @@ export const batchDeleteUser = params => {
     data: params
   })
 }
+
+// 角色用户分配
+export const assignRole = params => {
+  return request({
+    url: '/roleuser/add',
+    method: 'post',
+    data: params
+  })
+}

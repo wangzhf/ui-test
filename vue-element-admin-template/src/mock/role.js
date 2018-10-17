@@ -10,19 +10,27 @@ Mock.Random.extend({
 
 let Roles = []
 
+const roleKeys = ['FC', 'AM', 'SC', 'FINM', 'FM', 'GM', 'VP', 'HRD', 'MD', 'PM', 'BM', 'AAD']
+
 Roles.push({
   id: 1,
   roleCode: 'admin',
   roleName: '管理员'
 })
 
-for (let i = 0; i < 12; i++) {
-  const roleCode = Mock.mock('@roleNames')
-  Roles.push(Mock.mock({
+for (let i = 0; i < roleKeys.length; i++) {
+  // const roleCode = Mock.mock('@roleNames')
+  // Roles.push(Mock.mock({
+  //   id: Mock.Random.guid(),
+  //   roleCode,
+  //   roleName: getRoleName(roleCode)
+  // }))
+  const roleCode = roleKeys[i]
+  Roles.push({
     id: Mock.Random.guid(),
-    roleCode,
+    roleCode: roleCode,
     roleName: getRoleName(roleCode)
-  }))
+  })
 }
 
 function getRoleName(roleCode) {
@@ -43,6 +51,27 @@ function getRoleName(roleCode) {
     case 'AM':
       roleName = '客户经理'
       break
+    case 'GM':
+      roleName = '总经理'
+      break
+    case 'VP':
+      roleName = '副总裁'
+      break
+    case 'HRD':
+      roleName = '副总裁助理'
+      break
+    case 'MD':
+      roleName = '运营总监'
+      break
+    case 'PM':
+      roleName = '产品经理'
+      break
+    case 'BM':
+      roleName = '部门经理'
+      break
+    case 'AAD':
+      roleName = '副客户总监'
+      break
     default:
       roleName = '未知'
   }
@@ -52,6 +81,7 @@ function getRoleName(roleCode) {
 export default {
   getRoleList: params => {
     const data = JSON.parse(params.body)
+    console.log(data)
     const roleName = data.roleName
     const roleCode = data.roleCode
     const currentPage = data.currentPage

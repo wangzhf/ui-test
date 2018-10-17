@@ -44,8 +44,8 @@
       <el-table-column type="expand">
         <template slot-scope="props">
           <el-form label-position="left" inline class="child-table-expand">
-            <el-form-item :formatter="formatSex" :span="childColumnWidth" label="性别">
-              <span>{{ props.row.sex }}</span>
+            <el-form-item :span="childColumnWidth" label="性别">
+              <span :formatter="formatSex" v-text="props.row.sex == 1 ? '男' : '女'"/>
             </el-form-item>
             <el-form-item :span="childColumnWidth" label="年龄">
               <span>{{ props.row.age }}</span>

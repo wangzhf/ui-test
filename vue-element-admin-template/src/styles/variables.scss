@@ -141,3 +141,15 @@ $style: mini;
     // background: -ms-radial-gradient(left top,rgba(0, 0, 0, 0),rgba(0, 0, 0, 0) 70%,rgb(178, 100, 218) 70%) !important,
   );
 }
+
+
+$commonContainerStyle: (
+  border: 1px solid #ebeef5,
+  background-color: #fff,
+  color: #303133,
+  -webkit-transition: .3s,
+  transition: .3s,
+  box-shadow: 0 2px 12px 0 rgba(0,0,0,.1),
+  padding: 10px 0,
+  border-radius: 4px,
+)
