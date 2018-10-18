@@ -1,13 +1,18 @@
 import { asyncRouterMap, constantRouterMap } from '@/router'
+import { getAllMenu } from '@/api/login'
 
 /**
  * 通过meta.role判断是否与当前用户权限匹配
  * @param roles
  * @param route
  */
-function hasPermission(roles, route) {
-  if (route.meta && route.meta.roles) {
-    return roles.some(role => route.meta.roles.includes(role))
+function hasPermission(menus, route) {
+  if (route.authority) {
+    if (menus[route.authority] !== undefined) {
+      return menus[route.authority]
+    } else {
+      return false
+    }
   } else {
     return true
   }
@@ -18,20 +23,21 @@ function hasPermission(roles, route) {
  * @param routes asyncRouterMap
  * @param roles
  */
-function filterAsyncRouter(routes, roles) {
-  const res = []
-
-  routes.forEach(route => {
-    const tmp = { ...route }
-    if (hasPermission(roles, tmp)) {
-      if (tmp.children) {
-        tmp.children = filterAsyncRouter(tmp.children, roles)
+function filterAsyncRouter(asyncRouterMap, menus, menuDatas) {
+  const accessedRouters = asyncRouterMap.filter(route => {
+    if (hasPermission(menus, route)) {
+      if (menuDatas[route.authority]) {
+        route.name = menuDatas[route.authority].menuName
+        route.icon = menuDatas[route.authority].icon
       }
-      res.push(tmp)
+      if (route.children && route.children.length) {
+        route.children = filterAsyncRouter(route.children, menus, menuDatas)
+      }
+      return true
     }
+    return false
   })
-
-  return res
+  return accessedRouters
 }
 
 const permission = {
@@ -43,20 +49,24 @@ const permission = {
     SET_ROUTERS: (state, routers) => {
       state.addRouters = routers
       state.routers = constantRouterMap.concat(routers)
+      console.log('all router: ')
+      console.log(state.routers)
     }
   },
   actions: {
-    GenerateRoutes({ commit }, data) {
+    GenerateRoutes({ commit }, menus) {
       return new Promise(resolve => {
-        const { roles } = data
-        let accessedRouters
-        if (roles.includes('admin')) {
-          accessedRouters = asyncRouterMap
-        } else {
-          accessedRouters = filterAsyncRouter(asyncRouterMap, roles)
-        }
-        commit('SET_ROUTERS', accessedRouters)
-        resolve()
+        getAllMenu().then(res => {
+          const data = res.data
+          const menuDatas = {}
+          for (let i = 0; i < data.length; i++) {
+            menuDatas[data[i].menuCode] = data[i]
+          }
+          const accessedRouters = filterAsyncRouter(asyncRouterMap, menus, menuDatas)
+          console.log(accessedRouters)
+          commit('SET_ROUTERS', accessedRouters)
+          resolve()
+        })
       })
     }
   }

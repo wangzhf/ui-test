@@ -27,3 +27,9 @@ export function getUserInfo(token) {
   })
 }
 
+export function getAllMenu() {
+  return request({
+    url: '/menu/list',
+    method: 'post'
+  })
+}

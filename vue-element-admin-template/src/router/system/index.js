@@ -10,6 +10,7 @@ export default {
   redirect: 'noredirect',
   alwaysShow: true,
   name: 'System',
+  authority: 'system',
   meta: {
     title: 'system',
     icon: 'user'

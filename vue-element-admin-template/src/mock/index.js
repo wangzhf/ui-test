@@ -5,6 +5,7 @@ import roleAPI from './role'
 import resourceAPI from './resource'
 import roleuserAPI from './roleuser'
 import roleresourceAPI from './roleresource'
+import menuAPI from './menu'
 
 Mock.setup({
   timeout: '350-600'
@@ -41,5 +42,8 @@ Mock.mock(/\/roleuser\/add/, 'post', roleuserAPI.addRoleUser)
 
 // 角色资源分配
 Mock.mock(/\/roleresource\/add/, 'post', roleresourceAPI.addRoleResource)
+
+// 菜单管理
+Mock.mock(/\/menu\/list/, 'post', menuAPI.getAllMenu)
 
 export default Mock
