@@ -9,6 +9,7 @@ const menus = [
     uri: '/dashboard',
     path: '/dashboard',
     icon: 'user',
+    component: '/layout/Layout',
     parentId: null
   },
   {
@@ -20,6 +21,7 @@ const menus = [
     uri: '/system',
     path: '/system',
     icon: 'user',
+    component: '/layout/Layout',
     parentId: null,
     children: [
       {
@@ -31,6 +33,7 @@ const menus = [
         uri: '/user',
         path: '/user',
         icon: 'user',
+        component: '/system/user/index',
         parentId: 2
       },
       {
@@ -42,6 +45,7 @@ const menus = [
         uri: '/role',
         path: '/role',
         icon: 'user',
+        component: '/system/role/index',
         parentId: 2
       },
       {
@@ -53,28 +57,31 @@ const menus = [
         uri: '/resource',
         path: '/resource',
         icon: 'user',
+        component: '/system/resource/index',
         parentId: 2
       },
       {
         id: 6,
         title: '角色用户管理',
         menuName: '角色用户管理',
-        menuCode: 'roleuserManager',
+        menuCode: 'roleUserManager',
         type: 'menu',
         uri: '/roleuser',
         path: '/roleuser',
         icon: 'user',
+        component: '/system/roleuser/index',
         parentId: 2
       },
       {
         id: 7,
         title: '角色资源管理',
         menuName: '角色资源管理',
-        menuCode: 'roleresourceManager',
+        menuCode: 'roleResourceManager',
         type: 'menu',
         uri: '/roleresource',
         path: '/roleresource',
         icon: 'user',
+        component: '/system/roleresource/index',
         parentId: 2
       }
     ]

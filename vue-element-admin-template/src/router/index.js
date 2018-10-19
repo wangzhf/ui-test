@@ -5,7 +5,7 @@ Vue.use(Router)
 
 import CommonRouter from './common'
 
-import SystemRouter from './system/index'
+// import SystemRouter from './system/index'
 
 export const constantRouterMap = [
   ...CommonRouter
@@ -20,7 +20,7 @@ export default new Router({
 export const asyncRouterMap = [
 
   // 系统管理
-  SystemRouter,
+  // SystemRouter,
 
   { path: '*', redirect: '/404', hidden: true }
 ]

@@ -9,50 +9,50 @@ const userMap = {
     name: 'Super Admin',
     menus: [
       {
-        code: 'dashboard',
-        menu: '首页',
+        menuCode: 'dashboard',
+        menuName: '首页',
         method: 'GET',
         type: 'menu',
         uri: '/dashboard'
       },
       {
-        code: 'system',
-        menu: '系统管理',
+        menuCode: 'system',
+        menuName: '系统管理',
         method: 'GET',
         type: 'menu',
         uri: '/system'
       },
       {
-        code: 'userManager',
-        menu: '用户管理',
+        menuCode: 'userManager',
+        menuName: '用户管理',
         method: 'GET',
         type: 'menu',
         uri: '/user'
       },
       {
-        code: 'roleManager',
-        menu: '角色管理',
+        menuCode: 'roleManager',
+        menuName: '角色管理',
         method: 'GET',
         type: 'menu',
         uri: '/role'
       },
       {
-        code: 'resourceManager',
-        menu: '资源管理',
+        menuCode: 'resourceManager',
+        menuName: '资源管理',
         method: 'GET',
         type: 'menu',
         uri: '/resource'
       },
       {
-        code: 'roleuserManager',
-        menu: '角色用户管理',
+        menuCode: 'roleUserManager',
+        menuName: '角色用户管理',
         method: 'GET',
         type: 'menu',
         uri: '/roleuser'
       },
       {
-        code: 'roleresourceManager',
-        menu: '角色资源管理',
+        menuCode: 'roleResourceManager',
+        menuName: '角色资源管理',
         method: 'GET',
         type: 'menu',
         uri: '/roleresource'
@@ -67,8 +67,8 @@ const userMap = {
     name: 'Normal Editor',
     menus: [
       {
-        code: 'dashboard',
-        menu: '首页',
+        menuCode: 'dashboard',
+        menuName: '首页',
         method: 'GET',
         type: 'menu',
         uri: '/dashboard'

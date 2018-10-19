@@ -11,6 +11,7 @@ import '@/styles/index.scss' // global css
 
 import App from './App'
 import router from './router'
+import { asyncRouterMap } from './router'
 import store from './store'
 
 import i18n from './lang' // Internationalization
@@ -33,10 +34,20 @@ Object.keys(filters).forEach(key => {
 
 Vue.config.productionTip = false
 
-new Vue({
-  el: '#app',
-  router,
-  store,
-  i18n,
-  render: h => h(App)
+import { handleRouter } from './init'
+
+handleRouter().then((res) => {
+  for (let i = 0; i < res.length; i++) {
+    asyncRouterMap.splice(i, 0, res[i])
+  }
+  console.log('asyncRouterMap: ')
+  console.log(asyncRouterMap)
+  new Vue({
+    el: '#app',
+    router,
+    store,
+    i18n,
+    render: h => h(App)
+  })
 })
+

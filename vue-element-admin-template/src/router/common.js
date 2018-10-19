@@ -50,14 +50,16 @@ export default [
     hidden: true
   },
   {
-    path: '',
+    path: '/',
     component: Layout,
-    redirect: 'dashboard',
+    redirect: '/dashboard',
+    // hidden: true,
     children: [
       {
         path: 'dashboard',
         component: () => import('@/views/service/dashboard/index'),
-        name: 'Dashboard',
+        name: 'dashboard',
+        // alwaysShow: true,
         meta: { title: 'dashboard', icon: 'dashboard', noCache: true }
       }
     ]

@@ -26,11 +26,21 @@ function hasPermission(menus, route) {
 function filterAsyncRouter(asyncRouterMap, menus, menuDatas) {
   const accessedRouters = asyncRouterMap.filter(route => {
     if (hasPermission(menus, route)) {
+      console.log('before: ')
+      console.log(route.authority)
+      console.log(menuDatas[route.authority])
       if (menuDatas[route.authority]) {
-        route.name = menuDatas[route.authority].menuName
-        route.icon = menuDatas[route.authority].icon
+        console.log(route.authority)
+        const r = menuDatas[route.authority]
+        route.name = r.menuName
+        route.icon = r.icon
+        // 覆盖meta中信息
+        route.meta.title = r.menuCode
+        route.meta.icon = r.icon
+        console.log(route)
       }
       if (route.children && route.children.length) {
+        console.log('not worked ? ')
         route.children = filterAsyncRouter(route.children, menus, menuDatas)
       }
       return true
@@ -62,7 +72,11 @@ const permission = {
           for (let i = 0; i < data.length; i++) {
             menuDatas[data[i].menuCode] = data[i]
           }
+          console.log('menu datas: ')
+          console.log(menuDatas)
+          console.log(asyncRouterMap)
           const accessedRouters = filterAsyncRouter(asyncRouterMap, menus, menuDatas)
+          console.log('accessRouters: ')
           console.log(accessedRouters)
           commit('SET_ROUTERS', accessedRouters)
           resolve()

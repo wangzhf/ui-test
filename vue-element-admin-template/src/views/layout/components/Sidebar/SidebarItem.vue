@@ -4,15 +4,16 @@
     <template v-if="hasOneShowingChild(item.children,item) && (!onlyOneChild.children||onlyOneChild.noShowingChildren)&&!item.alwaysShow">
       <app-link :to="resolvePath(onlyOneChild.path)">
         <el-menu-item :index="resolvePath(onlyOneChild.path)" :class="{'submenu-title-noDropdown':!isNest}">
-          <item v-if="onlyOneChild.meta" :icon="onlyOneChild.meta.icon||item.meta.icon" :title="generateTitle(onlyOneChild.meta.title)" />
+          <item v-if="onlyOneChild.icon" :icon="onlyOneChild.icon" :title="generateTitle(onlyOneChild.name)" />
+          <item v-else :icon="onlyOneChild.meta.icon||item.meta.icon" :title="generateTitle(onlyOneChild.meta.title)" />
         </el-menu-item>
       </app-link>
     </template>
 
     <el-submenu v-else ref="submenu" :index="resolvePath(item.path)">
       <template slot="title">
-        <!-- <item v-if="item.meta" :icon="item.meta.icon" :title="generateTitle(item.meta.title)" /> -->
-        <item :icon="item.icon" :title="generateTitle(item.name)" />
+        <item v-if="item.meta" :icon="item.meta.icon" :title="generateTitle(item.meta.title)" />
+        <!-- <item :icon="item.icon" :title="generateTitle(item.name)" /> -->
       </template>
 
       <template v-for="child in item.children" v-if="!child.hidden">
@@ -66,6 +67,10 @@ export default {
     return {
       onlyOneChild: null
     }
+  },
+  created() {
+    console.log('menu item: ')
+    console.log(this.item)
   },
   methods: {
     hasOneShowingChild(children, parent) {
