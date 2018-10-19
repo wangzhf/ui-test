@@ -69,8 +69,8 @@ export default {
     }
   },
   created() {
-    console.log('menu item: ')
-    console.log(this.item)
+    // console.log('menu item: ')
+    // console.log(this.item)
   },
   methods: {
     hasOneShowingChild(children, parent) {

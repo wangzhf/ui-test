@@ -83,6 +83,44 @@ const menus = [
         icon: 'user',
         component: '/system/roleresource/index',
         parentId: 2
+      },
+      {
+        id: 8,
+        title: '子菜单测试',
+        menuName: '子菜单测试',
+        menuCode: 'childMenu',
+        type: 'menu',
+        uri: '/childMenu',
+        path: '/childMenu',
+        icon: 'user',
+        component: '/system/childMenu/index',
+        parentId: 2,
+        children: [
+          {
+            id: 9,
+            title: '子菜单测试2',
+            menuName: '子菜单测试2',
+            menuCode: 'childMenu2',
+            type: 'menu',
+            uri: '/childMenu2',
+            path: '/childMenu2',
+            icon: 'user',
+            component: '/system/childMenu/childMenu2/index',
+            parentId: 8
+          },
+          {
+            id: 10,
+            title: '子菜单测试3',
+            menuName: '子菜单测试3',
+            menuCode: 'childMenu3',
+            type: 'menu',
+            uri: '/childMenu3',
+            path: '/childMenu3',
+            icon: 'user',
+            component: '/system/childMenu/childMenu2/child3',
+            parentId: 8
+          }
+        ]
       }
     ]
   }

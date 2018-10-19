@@ -56,6 +56,27 @@ const userMap = {
         method: 'GET',
         type: 'menu',
         uri: '/roleresource'
+      },
+      {
+        menuCode: 'childMenu',
+        menuName: '子菜单测试',
+        method: 'GET',
+        type: 'menu',
+        uri: '/child'
+      },
+      {
+        menuCode: 'childMenu2',
+        menuName: '子菜单测试2',
+        method: 'GET',
+        type: 'menu',
+        uri: '/child2'
+      },
+      {
+        menuCode: 'childMenu3',
+        menuName: '子菜单测试3',
+        method: 'GET',
+        type: 'menu',
+        uri: '/child3'
       }
     ]
   },

@@ -20,11 +20,14 @@ function generateRouter(menus, parentPath) {
       route.meta.title = lowerFistLetter(menu.menuCode)
       route.meta.icon = menu.icon
       // refer: https://github.com/vuejs/vue-loader/releases/tag/v13.0.0
-      // route.component = require('./' + menu.component).default
       route.component = _import(menu.component)
+      // route.component = require('./' + menu.component).default
       // route.component = () => import('@/views' + menu.component + '.vue').then(m => m.default)
       if (menu.children && menu.children.length > 0) {
-        route.children = generateRouter(menu.children, menu.path)
+        route.redirect = route.path + menu.children[0].path
+        // 防止单个子节点时不显示父菜单
+        route.alwaysShow = true
+        route.children = generateRouter(menu.children, route.path)
       }
       asyncRouters.push(route)
     }
