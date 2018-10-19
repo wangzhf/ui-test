@@ -19,6 +19,7 @@ function generateRouter(menus, parentPath) {
       route.meta = {}
       route.meta.title = lowerFistLetter(menu.menuCode)
       route.meta.icon = menu.icon
+      // refer: https://github.com/vuejs/vue-loader/releases/tag/v13.0.0
       // route.component = require('./' + menu.component).default
       route.component = _import(menu.component)
       // route.component = () => import('@/views' + menu.component + '.vue').then(m => m.default)
