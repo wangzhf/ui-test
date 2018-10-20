@@ -44,14 +44,16 @@ const appendTreeNode = (treeArray, item, idPropName = 'id', parentPropName = 'pa
 
 const deleteFromTree = (list, id, idPropName = 'id', childrenPropName = 'children') => {
   if (!list || list == null || list.length <= 0) return true
-  for (var i = 0; i < list.length; i++) {
+  for (let i = 0; i < list.length; i++) {
     if (list[i][idPropName] === id) {
       list.splice(i, 1)
       return true
     } else {
-      const result = deleteFromTree(list[i][childrenPropName], id, idPropName, childrenPropName)
-      if (result) {
-        return result
+      if (list[i][childrenPropName]) {
+        const result = deleteFromTree(list[i][childrenPropName], id, idPropName, childrenPropName)
+        if (result) {
+          return result
+        }
       }
     }
   }
@@ -76,14 +78,15 @@ const updateTreeNode = (list, item, idPropName = 'id', childrenPropName = 'child
   if (!list || list == null || list.length <= 0) return false
   for (var i = 0; i < list.length; i++) {
     if (list[i][idPropName] === item[idPropName]) {
-      console.log(list[i][idPropName], item[idPropName])
       // list.splice(i, 1, item)
       list[i] = item
       return true
     } else {
-      const result = updateTreeNode(list[i][childrenPropName], item, idPropName, childrenPropName)
-      if (result) {
-        return result
+      if (list[i][childrenPropName]) {
+        const result = updateTreeNode(list[i][childrenPropName], item, idPropName, childrenPropName)
+        if (result) {
+          return result
+        }
       }
     }
   }

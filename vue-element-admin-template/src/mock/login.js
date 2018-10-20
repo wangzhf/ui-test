@@ -37,6 +37,13 @@ const userMap = {
         uri: '/role'
       },
       {
+        menuCode: 'menuManager',
+        menuName: '菜单管理',
+        method: 'GET',
+        type: 'menu',
+        uri: '/menu'
+      },
+      {
         menuCode: 'resourceManager',
         menuName: '资源管理',
         method: 'GET',

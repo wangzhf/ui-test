@@ -112,7 +112,6 @@ export default {
 
   getUserRoleList: config => {
     const data = JSON.parse(config.body) || {}
-    console.log('get user role list')
     const id = data.id
     const ret = {}
     if (id) {

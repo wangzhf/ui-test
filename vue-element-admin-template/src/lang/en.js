@@ -65,6 +65,7 @@ export default {
     system: 'System',
     userManager: 'User Manager',
     roleManager: 'Role Manager',
+    menuManager: 'Menu Manager',
     resourceManager: 'Resource Manager',
     roleUserManager: 'Role User Manager',
     roleResourceManager: 'Role Resource Manager'

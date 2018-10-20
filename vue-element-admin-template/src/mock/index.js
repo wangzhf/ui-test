@@ -1,11 +1,11 @@
 import Mock from 'mockjs'
 import loginAPI from './login'
-import userAPI from './user'
-import roleAPI from './role'
-import resourceAPI from './resource'
-import roleuserAPI from './roleuser'
-import roleresourceAPI from './roleresource'
-import menuAPI from './menu'
+import userAPI from './system/user'
+import roleAPI from './system/role'
+import resourceAPI from './system/resource'
+import roleuserAPI from './system/roleuser'
+import roleresourceAPI from './system/roleresource'
+import menuAPI from './system/menu'
 
 Mock.setup({
   timeout: '350-600'
@@ -47,6 +47,12 @@ Mock.mock(/\/roleuser\/add/, 'post', roleuserAPI.addRoleUser)
 Mock.mock(/\/roleresource\/add/, 'post', roleresourceAPI.addRoleResource)
 
 // 菜单管理
+Mock.mock(/\/role\/menu\/list/, 'post', menuAPI.getRoleMenuList)
+Mock.mock(/\/role\/menu\/add/, 'post', menuAPI.addRoleMenu)
 Mock.mock(/\/menu\/list/, 'post', menuAPI.getAllMenu)
+Mock.mock(/\/menu\/update/, 'post', menuAPI.editMenu)
+Mock.mock(/\/menu\/delete/, 'post', menuAPI.deleteMenu)
+Mock.mock(/\/menu\/add/, 'post', menuAPI.addMenu)
+Mock.mock(/\/menu\/batchDelete/, 'post', menuAPI.batchDelete)
 
 export default Mock

@@ -39,3 +39,19 @@ export const batchDeleteRole = params => {
     data: params
   })
 }
+
+export const listRoleMenus = params => {
+  return request({
+    url: '/role/menu/list',
+    method: 'post',
+    data: params
+  })
+}
+
+export const addRoleMenu = params => {
+  return request({
+    url: '/role/menu/add',
+    method: 'post',
+    data: params
+  })
+}

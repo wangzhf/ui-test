@@ -40,8 +40,12 @@
       <el-table-column type="index" label="序号" width="60" />
       <el-table-column prop="roleName" label="角色名称" sortable />
       <el-table-column prop="roleCode" label="角色代码" sortable />
-      <el-table-column label="操作" width="150">
+      <el-table-column label="操作" width="250">
         <template slot-scope="scope">
+          <el-button
+            size="mini"
+            type="primary"
+            @click="handleConfigMenu(scope.$index, scope.row)">关联菜单</el-button>
           <el-button
             size="mini"
             @click="handleEdit(scope.$index, scope.row)">编辑</el-button>
@@ -96,14 +100,42 @@
         <el-button type="primary" @click.native="addSubmit">提交</el-button>
       </div>
     </el-dialog>
+
+    <!-- 配置菜单界面 -->
+    <el-dialog v-el-drag-dialog :visible.sync="dialogVisible" :close-on-click-modal="false" title="配置角色菜单">
+      <div class="select-tree">
+        <el-scrollbar
+          tag="div"
+          class="is-empty"
+          wrap-class="el-select-dropdown__wrap"
+          view-class="el-select-dropdown__list">
+          <el-tree
+            ref="menuTree"
+            :data="menuTreeList"
+            :props="menuProps"
+            :check-on-click-node="true"
+            :default-expanded-keys="roleMenus"
+            :default-checked-keys="roleMenus"
+            node-key="id"
+            show-checkbox
+          />
+        </el-scrollbar>
+      </div>
+      <span slot="footer" class="dialog-footer">
+        <el-button @click.native="dialogVisible = false">取 消</el-button>
+        <el-button type="primary" @click="configRoleMenus">确 定</el-button>
+      </span>
+    </el-dialog>
   </div>
 </template>
 
 <script>
-import { getRoleList, editRole, deleteRole, addRole, batchDeleteRole } from '@/api/system/role'
+import { getRoleList, editRole, deleteRole, addRole, batchDeleteRole, listRoleMenus, addRoleMenu } from '@/api/system/role'
+import elDragDialog from '@/directive/el-dragDialog' // base on element-ui
 
 export default {
   name: 'RoleManager',
+  directives: { elDragDialog },
   data() {
     return {
       roleInfo: {
@@ -141,7 +173,17 @@ export default {
       addForm: {
         roleName: '',
         roleCode: ''
-      }
+      },
+
+      // 配置角色
+      dialogVisible: false,
+      menuTreeList: [],
+      menuProps: {
+        children: 'children',
+        label: 'menuName'
+      },
+      roleMenus: [],
+      roleMenuId: null
     }
   },
   computed: {
@@ -262,6 +304,33 @@ export default {
     reset() {
       this.roleInfo.roleName = ''
       this.roleInfo.roleCode = ''
+    },
+    handleConfigMenu(index, row) {
+      this.roleMenuId = row.id
+      const param = {
+        id: row.id
+      }
+      listRoleMenus(param).then(res => {
+        console.log(res)
+        this.menuTreeList = res.data.allMenus
+        this.roleMenus = res.data.menus
+        this.dialogVisible = true
+      })
+    },
+    configRoleMenus() {
+      const selectedMenus = this.$refs.menuTree.getCheckedKeys()
+      const params = {
+        id: this.roleMenuId,
+        menus: selectedMenus
+      }
+      addRoleMenu(params).then(res => {
+        this.$message({
+          type: 'success',
+          message: '操作成功'
+        })
+        this.dialogVisible = false
+        this.roleMenuId = null
+      })
     }
   }
 }
