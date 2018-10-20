@@ -67,8 +67,12 @@
       <el-table-column prop="age" label="年龄" width="80" sortable />
       <el-table-column prop="birthday" label="生日" width="120" sortable />
       <el-table-column prop="address" label="地址" sortable /> -->
-      <el-table-column label="操作" width="150">
+      <el-table-column label="操作" width="250">
         <template slot-scope="scope">
+          <el-button
+            size="mini"
+            type="primary"
+            @click.stop="handleRoleConfig(scope.$index, scope.row)">配置角色</el-button>
           <el-button
             size="mini"
             @click.stop="handleEdit(scope.$index, scope.row)">编辑</el-button>
@@ -93,7 +97,7 @@
     </div>
 
     <!--编辑界面-->
-    <el-dialog :visible.sync="editFormVisible" :close-on-click-modal="false" title="编辑">
+    <el-dialog v-el-drag-dialog :visible.sync="editFormVisible" :close-on-click-modal="false" title="编辑" @dragDialog="handleDrag">
       <el-form ref="editForm" :model="editForm" :rules="editFormRules" label-width="80px">
         <el-form-item label="姓名" prop="userName">
           <el-input v-model="editForm.userName" auto-complete="off" />
@@ -124,7 +128,7 @@
     </el-dialog>
 
     <!--新增界面-->
-    <el-dialog :visible.sync="addFormVisible" :close-on-click-modal="false" title="新增">
+    <el-dialog v-el-drag-dialog :visible.sync="addFormVisible" :close-on-click-modal="false" title="新增" @dragDialog="handleDrag">
       <el-form ref="addForm" :model="addForm" :rules="addFormRules" label-width="80px">
         <el-form-item label="姓名" prop="userName">
           <el-input v-model="addForm.userName" auto-complete="off" />
@@ -153,15 +157,42 @@
         <el-button type="primary" @click.native="addSubmit">提交</el-button>
       </div>
     </el-dialog>
+
+    <!-- 配置角色界面 -->
+    <el-dialog v-el-drag-dialog :visible.sync="dialogVisible" :close-on-click-modal="false" title="配置用户角色" @dragDialog="handleDrag">
+      <div class="select-tree">
+        <el-scrollbar
+          tag="div"
+          class="is-empty"
+          wrap-class="el-select-dropdown__wrap"
+          view-class="el-select-dropdown__list">
+          <el-tree
+            ref="roleTree"
+            :data="roleTreeList"
+            :props="roleProps"
+            :check-on-click-node="true"
+            :default-checked-keys="userRoles"
+            node-key="id"
+            show-checkbox
+          />
+        </el-scrollbar>
+      </div>
+      <span slot="footer" class="dialog-footer">
+        <el-button @click.native="dialogVisible = false">取 消</el-button>
+        <el-button type="primary" @click="configUserRoles">确 定</el-button>
+      </span>
+    </el-dialog>
   </div>
 </template>
 
 <script>
-import { getUserList, editUser, deleteUser, addUser, batchDeleteUser } from '@/api/system/user'
+import { getUserList, editUser, deleteUser, addUser, batchDeleteUser, listUserRole, addUserRole } from '@/api/system/user'
 import { parseTime } from '@/utils'
+import elDragDialog from '@/directive/el-dragDialog' // base on element-ui
 
 export default {
   name: 'UserManager',
+  directives: { elDragDialog },
   data() {
     return {
       userInfo: {
@@ -211,7 +242,16 @@ export default {
       childColumnWidth: 4,
       // 控制是否展开行
       childRowExpand: false,
-      expandRowKeys: []
+      expandRowKeys: [],
+      // 配置角色
+      dialogVisible: false,
+      roleTreeList: [],
+      roleProps: {
+        children: 'children',
+        label: 'roleName'
+      },
+      userRoles: [],
+      roleUserId: null
     }
   },
   computed: {
@@ -373,6 +413,38 @@ export default {
       } else {
         this.expandRowKeys = []
       }
+    },
+    // 配置角色
+    handleRoleConfig(index, row) {
+      this.roleUserId = row.id
+      const param = {
+        id: row.id
+      }
+      listUserRole(param).then(res => {
+        console.log(res)
+        this.roleTreeList = res.data.allRoles
+        this.userRoles = res.data.roles
+        this.dialogVisible = true
+      })
+    },
+    configUserRoles() {
+      const selectedRoles = this.$refs.roleTree.getCheckedKeys()
+      const params = {
+        id: this.roleUserId,
+        roles: selectedRoles
+      }
+      addUserRole(params).then(res => {
+        this.$message({
+          type: 'success',
+          message: '操作成功'
+        })
+        this.dialogVisible = false
+        this.roleUserId = null
+      })
+    },
+    // v-el-drag-dialog onDrag callback function
+    handleDrag() {
+      // this.$refs.select.blur()
     }
   }
 }

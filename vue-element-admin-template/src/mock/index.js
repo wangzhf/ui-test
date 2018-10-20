@@ -22,6 +22,9 @@ Mock.mock(/\/user\/edit/, 'post', userAPI.editUser)
 Mock.mock(/\/user\/delete/, 'post', userAPI.deleteUser)
 Mock.mock(/\/user\/add/, 'post', userAPI.addUser)
 Mock.mock(/\/user\/batchDelete/, 'post', userAPI.batchDelete)
+// 获取用户角色
+Mock.mock(/\/user\/role$/, 'post', roleAPI.getUserRoleList)
+Mock.mock(/\/user\/role\/add/, 'post', roleAPI.addUserRole)
 
 // 角色管理
 Mock.mock(/\/role\/roles/, 'post', roleAPI.getRoleList)

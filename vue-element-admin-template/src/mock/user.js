@@ -1,11 +1,21 @@
 import Mock from 'mockjs'
 
 let Users = []
+// 手动添加一个用户，用于测试角色
+Users.push({
+  id: 1,
+  userCode: 'Messi',
+  userName: '梅西',
+  address: '巴塞罗那足球俱乐部',
+  age: 31,
+  birthday: '1987-6-24',
+  sex: 1
+})
 
 for (let i = 0; i < 101; i++) {
   Users.push(Mock.mock({
     id: Mock.Random.guid(),
-    userCode: Mock.Random.string('lower', 5, 8),
+    userCode: '@last',
     userName: Mock.Random.cname(),
     address: Mock.mock('@county(true)'),
     'age|18-60': 1,

@@ -48,3 +48,19 @@ export const assignRole = params => {
     data: params
   })
 }
+
+export const listUserRole = params => {
+  return request({
+    url: '/user/role',
+    method: 'post',
+    data: params
+  })
+}
+
+export const addUserRole = params => {
+  return request({
+    url: '/user/role/add',
+    method: 'post',
+    data: params
+  })
+}

@@ -10,6 +10,9 @@ Mock.Random.extend({
 
 let Roles = []
 
+// 存储用户角色对应关系: [{uid: 1, roles: [1, 2, 3]}]
+const userRoles = [{ id: 1, roles: [1] }]
+
 const roleKeys = ['FC', 'AM', 'SC', 'FINM', 'FM', 'GM', 'VP', 'HRD', 'MD', 'PM', 'BM', 'AAD']
 
 Roles.push({
@@ -80,12 +83,12 @@ function getRoleName(roleCode) {
 
 export default {
   getRoleList: params => {
-    const data = JSON.parse(params.body)
+    const data = JSON.parse(params.body) || {}
     console.log(data)
-    const roleName = data.roleName
-    const roleCode = data.roleCode
-    const currentPage = data.currentPage
-    const pageSize = data.pageSize
+    const roleName = data.roleName || ''
+    const roleCode = data.roleCode || ''
+    const currentPage = data.currentPage || 1
+    const pageSize = data.pageSize || 999
 
     let tmpRoles = Roles.filter(role => {
       if (roleName && role.roleName.indexOf(roleName) === -1) {
@@ -105,6 +108,44 @@ export default {
       total: total,
       roles: tmpRoles
     }
+  },
+
+  getUserRoleList: config => {
+    const data = JSON.parse(config.body) || {}
+    console.log('get user role list')
+    const id = data.id
+    const ret = {}
+    if (id) {
+      userRoles.filter(item => {
+        if (id === item.id) {
+          ret.roles = item.roles
+        }
+      })
+    }
+    ret.allRoles = Roles
+    return ret
+  },
+
+  addUserRole: config => {
+    const data = JSON.parse(config.body) || {}
+    console.log('add user role: ')
+    console.log(data)
+    const roles = data.roles || []
+    const id = data.id
+    let match = false
+    userRoles.filter(userRole => {
+      if (userRole.id === id) {
+        userRole.roles = roles
+        match = true
+      }
+    })
+    if (!match) {
+      userRoles.push({
+        id,
+        roles
+      })
+    }
+    console.log(userRoles)
   },
 
   editRole: params => {
