@@ -285,9 +285,6 @@ export default {
     padding: 10px 0;
     border-radius: 4px;
 
-    .el-tree-node__content>.el-tree-node__expand-icon {
-      font-size: 20px;
-    }
   }
 }
 

@@ -101,3 +101,10 @@
 .el-menu--popup {
   padding: $menuPopPadding;
 }
+// tree
+.el-tree-node__expand-icon {
+  font-size: 20px;
+}
+.el-select-dropdown .el-scrollbar.is-empty .el-select-dropdown__list {
+  padding: 4px;
+}
