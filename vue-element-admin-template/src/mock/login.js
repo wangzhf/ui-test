@@ -84,6 +84,20 @@ const userMap = {
         method: 'GET',
         type: 'menu',
         uri: '/child3'
+      },
+      {
+        menuCode: 'userCenter',
+        menuName: '个人中心',
+        method: 'GET',
+        type: 'menu',
+        uri: '/usercenter'
+      },
+      {
+        menuCode: 'me',
+        menuName: '我的',
+        method: 'GET',
+        type: 'menu',
+        uri: '/me'
       }
     ]
   },

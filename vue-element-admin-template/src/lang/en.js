@@ -68,7 +68,9 @@ export default {
     menuManager: 'Menu Manager',
     resourceManager: 'Resource Manager',
     roleUserManager: 'Role User Manager',
-    roleResourceManager: 'Role Resource Manager'
+    roleResourceManager: 'Role Resource Manager',
+    userCenter: 'User Center',
+    me: 'Me'
   },
   navbar: {
     logOut: 'Log Out',

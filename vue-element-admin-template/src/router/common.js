@@ -60,7 +60,7 @@ export default [
         component: () => import('@/views/service/dashboard/index'),
         name: 'dashboard',
         // alwaysShow: true,
-        meta: { title: 'dashboard', icon: 'dashboard', noCache: true }
+        meta: { title: 'dashboard', icon: 'solid_home', noCache: true }
       }
     ]
   }

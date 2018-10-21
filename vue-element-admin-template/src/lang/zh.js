@@ -68,7 +68,9 @@ export default {
     menuManager: '菜单管理',
     resourceManager: '资源管理',
     roleUserManager: '角色用户管理',
-    roleResourceManager: '角色资源管理'
+    roleResourceManager: '角色资源管理',
+    userCenter: '个人中心',
+    me: '我的'
   },
   navbar: {
     logOut: '退出登录',
