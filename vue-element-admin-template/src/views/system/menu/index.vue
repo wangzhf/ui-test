@@ -43,7 +43,7 @@
               <el-form-item :label-width="formLabelWidth" label="菜单名称">
                 <el-input v-model="form.menuName" auto-complete="off" />
               </el-form-item>
-              <el-form-item :label-width="formLabelWidth" label="名称">
+              <el-form-item :label-width="formLabelWidth" label="英文名称">
                 <el-input v-model="form.menuCode" auto-complete="off" />
               </el-form-item>
               <el-form-item :label-width="formLabelWidth" label="类型">
@@ -52,7 +52,8 @@
                 <el-radio v-model="form.type" label="action" class="radio">功能</el-radio>
               </el-form-item>
               <el-form-item :label-width="formLabelWidth" label="图标">
-                <el-input v-model="form.icon" auto-complete="off" />
+                <svg-icon :icon-class="form.icon" />
+                <el-button type="text" @click="selectIconDialog=true">选择</el-button>
               </el-form-item>
               <el-form-item :label-width="formLabelWidth" label="URI">
                 <el-input v-model="form.path" auto-complete="off" />
@@ -82,6 +83,17 @@
         </el-card>
       </el-col>
     </el-row>
+
+    <!-- 选择图标 -->
+    <el-dialog v-el-drag-dialog :visible.sync="selectIconDialog" :close-on-click-modal="false" title="选择图标">
+      <icon-selector
+        ref="iconSelector"
+      />
+      <span slot="footer" class="dialog-footer">
+        <el-button @click.native="selectIconDialog = false">取 消</el-button>
+        <el-button type="primary" @click="handleSelectIcon">确 定</el-button>
+      </span>
+    </el-dialog>
   </div>
 </template>
 
@@ -90,12 +102,15 @@ import selectTree from '@/components/Tree/selectTree.vue'
 import treeter from '@/components/Tree/treeter'
 import merge from 'element-ui/src/utils/merge'
 import * as menuAPI from '@/api/system/menu'
+import elDragDialog from '@/directive/el-dragDialog' // base on element-ui
+import IconSelector from '@/components/FAIcon/IconSelector'
 
 export default {
   name: 'MenuManager',
-
+  directives: { elDragDialog },
   components: {
-    'el-select-tree': selectTree
+    'el-select-tree': selectTree,
+    'icon-selector': IconSelector
   },
   mixins: [treeter],
   data() {
@@ -122,7 +137,9 @@ export default {
         sort: 0,
         usable: '1',
         remarks: ''
-      }
+      },
+      // 选择图标
+      selectIconDialog: false
     }
   },
   watch: {
@@ -255,6 +272,11 @@ export default {
         this.menuTree = []
         this.menuTree.push(...res.data)
       })
+    },
+    handleSelectIcon() {
+      const selectedClassName = this.$refs.iconSelector.getSelectedClassName()
+      this.form.icon = selectedClassName
+      this.selectIconDialog = false
     }
   }
 }
