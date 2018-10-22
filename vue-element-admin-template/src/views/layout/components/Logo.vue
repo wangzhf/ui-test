@@ -1,8 +1,8 @@
 <template>
   <div class="logo">
     <transition name="slide-fade">
-      <p v-if="isCollapse">Vue Admin</p>
-      <p v-else>VA</p>
+      <p v-if="isCollapse">LOGO</p>
+      <p v-else><img src="/logo.png" alt="" style="height: inherit; width: inherit;"></p>
     </transition>
   </div>
 </template>
