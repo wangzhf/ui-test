@@ -1,14 +1,13 @@
 <template>
   <div class="content-container">
     <el-row style="margin-left: 10px;">
-      <el-button size="small" type="primary" @click="newAdd" v-text="'新增'" />
-      <el-button size="small" type="danger" @click="batchDelete" v-text="'删除'" />
+      <el-button type="primary" @click="newAdd" v-text="'新增'" />
+      <el-button type="danger" @click="batchDelete" v-text="'删除'" />
     </el-row>
     <el-row slot="body" :gutter="24" class="tree-area">
       <el-col :span="6" :xs="24" :sm="24" :md="6" :lg="6" style="margin-bottom: 20px">
         <el-input
           v-model="filterText"
-          size="small"
           placeholder="输入关键字进行过滤"
         />
         <el-tree

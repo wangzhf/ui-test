@@ -1,7 +1,7 @@
 <template>
   <div class="content-container">
     <el-row style="text-align: center;">
-      <el-button size="small" type="primary" @click="handleAssignRole" v-text="'确认分配'" />
+      <el-button type="primary" @click="handleAssignRole" v-text="'确认分配'" />
     </el-row>
     <el-row :gutter="20" style="margin-top: 20px;">
       <el-col :span="1"/>
@@ -12,14 +12,13 @@
               <el-form-item label="资源">
                 <el-input
                   v-model="resourceName"
-                  size="small"
                   placeholder="输入关键字进行过滤"
                 />
               </el-form-item>
             </el-form>
           </el-col>
           <el-col :span="5">
-            <el-button size="small" type="primary" @click="loadResources" v-text="'查找'" />
+            <el-button type="primary" @click="loadResources" v-text="'查找'" />
           </el-col>
           <el-col :span="2" style="margin-top: 6px;">
             <el-checkbox v-model="multiSelectResource">开启多选</el-checkbox>
@@ -46,14 +45,13 @@
             <el-form ref="form2" inline>
               <el-form-item label="角色">
                 <el-input
-                  size="small"
                   placeholder="输入关键字进行过滤"
                 />
               </el-form-item>
             </el-form>
           </el-col>
           <el-col :span="5">
-            <el-button size="small" type="primary" @click="loadRoles" v-text="'查找'" />
+            <el-button type="primary" @click="loadRoles" v-text="'查找'" />
           </el-col>
           <el-col :span="2" style="margin-top: 6px;">
             <el-checkbox v-model="multiSelectRole">开启多选</el-checkbox>

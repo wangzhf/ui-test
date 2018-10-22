@@ -1,6 +1,6 @@
 <template>
   <div class="content-container">
-    <el-form ref="form" :inline="true" :model="userInfo" label-width="80px" size="mini">
+    <el-form ref="form" :inline="true" :model="userInfo" label-width="80px">
       <el-row>
         <el-col :span="8">
           <el-form-item label="用户姓名">
@@ -23,7 +23,7 @@
         <el-col>
           <el-button type="primary" @click="handleChildExpand" v-text="childExpandText" />
           <el-button type="primary" @click="handleAdd">新增</el-button>
-          <el-button :disabled="disabledBatchBtn" type="primary" size="mini" @click="batchDelete">批量删除</el-button>
+          <el-button :disabled="disabledBatchBtn" type="primary" @click="batchDelete">批量删除</el-button>
         </el-col>
       </el-row>
     </el-form>
@@ -70,14 +70,11 @@
       <el-table-column label="操作" width="250">
         <template slot-scope="scope">
           <el-button
-            size="mini"
             type="primary"
             @click.stop="handleRoleConfig(scope.$index, scope.row)">配置角色</el-button>
           <el-button
-            size="mini"
             @click.stop="handleEdit(scope.$index, scope.row)">编辑</el-button>
           <el-button
-            size="mini"
             type="danger"
             @click.stop="handleDelete(scope.$index, scope.row)">删除</el-button>
         </template>

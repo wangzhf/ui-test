@@ -76,21 +76,21 @@ let menuList = [
         remarks: '',
         parentId: 2
       },
-      {
-        id: 5,
-        title: '资源管理',
-        menuName: '资源管理',
-        menuCode: 'resourceManager',
-        type: 'menu',
-        uri: '/resource',
-        path: '/resource',
-        icon: 'solid_warehouse',
-        component: '/system/resource/index',
-        usable: 1,
-        sort: 20,
-        remarks: '',
-        parentId: 2
-      },
+      // {
+      //   id: 5,
+      //   title: '资源管理',
+      //   menuName: '资源管理',
+      //   menuCode: 'resourceManager',
+      //   type: 'menu',
+      //   uri: '/resource',
+      //   path: '/resource',
+      //   icon: 'solid_warehouse',
+      //   component: '/system/resource/index',
+      //   usable: 1,
+      //   sort: 20,
+      //   remarks: '',
+      //   parentId: 2
+      // },
       {
         id: 6,
         title: '角色用户管理',
