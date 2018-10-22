@@ -29,7 +29,7 @@
       :disabled="disabled"
       :readonly="multiple"
       :validate-event="false"
-      :icon="iconClass"
+      :suffix-icon="iconClass"
       type="text"
       @focus="visible = true"
       @click="handleIconClick"
@@ -179,7 +179,8 @@ export default {
         this.inputHovering && !this.multiple &&
         this.value !== undefined && this.value != null &&
         this.value !== ''
-      return criteria ? 'circle-close is-show-close' : 'caret-top'
+      // return criteria ? 'el-select__caret el-icon-close' : 'el-select__caret el-icon-caret-top'
+      return criteria ? 'el-select__caret el-icon-caret-top ' : 'el-select__caret el-icon-caret-top'
     },
 
     emptyText() {
