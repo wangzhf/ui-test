@@ -26,11 +26,11 @@ for (let i = 0; i < 101; i++) {
 
 export default {
   getUserList: params => {
-    const data = JSON.parse(params.body)
-    const userName = data.userName
-    const userCode = data.userCode
-    const currentPage = data.currentPage
-    const pageSize = data.pageSize
+    const data = JSON.parse(params.body) || {}
+    const userName = data.userName || ''
+    const userCode = data.userCode || ''
+    const currentPage = data.currentPage || 1
+    const pageSize = data.pageSize || 10
 
     let tmpUsers = Users.filter(user => {
       if (userName && user.userName.indexOf(userName) === -1) {
@@ -57,7 +57,7 @@ export default {
     // })
     return {
       total: total,
-      users: tmpUsers
+      list: tmpUsers
     }
   },
 
