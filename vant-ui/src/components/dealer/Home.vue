@@ -3,21 +3,24 @@
     <!-- swipe -->
     <van-swipe :autoplay="3000" style="height: 200px">
       <van-swipe-item v-for="(image, index) in swipeImages" :key="index">
-        <img v-lazy="image" />
+        <img :src="image" />
       </van-swipe-item>
     </van-swipe>
 
     <van-panel title="店端服务">
-      <div class="content-container">
-        <div
-          v-for="(img, index) in images"
-          :key="index"
-          class="box van-hairline--surround"
-          @click="goToContent(img.url)"
-        >
-          <i class="icon iconfont" v-html="img.image"></i>
-          <p>{{img.label}}</p>
-        </div>
+      <div class="mui-content">
+        <ul class="mui-table-view mui-grid-view mui-grid-9">
+          <li
+            v-for="(img, index) in images"
+            :key="index"
+            class="mui-table-view-cell mui-media mui-col-xs-4 mui-col-sm-4"
+          >
+            <a href="#">
+              <i class="icon iconfont" :style="{color: img.color}" v-html="img.image"></i>
+              <div class="mui-media-body">{{img.label}}</div>
+            </a>
+          </li>
+        </ul>
       </div>
     </van-panel>
   </div>
@@ -26,6 +29,7 @@
 <script>
 import Vue from 'vue'
 import { Lazyload } from 'vant'
+import http from '@/api'
 
 Vue.use(Lazyload, {})
 
@@ -33,58 +37,32 @@ export default {
   name: 'Home',
   data () {
     return {
-      swipeImages: [
-        'https://img.xiaopiu.com/userImages/img633816772b440f8.jpg',
-        'https://img.xiaopiu.com/userImages/img633416772b3eef0.jpg',
-        'https://img.xiaopiu.com/userImages/img633616772b41dd0.jpg',
-        'https://img.xiaopiu.com/userImages/img633416772b3eef0.jpg',
-        'https://img.xiaopiu.com/userImages/img633816772b440f8.jpg',
-        'https://img.xiaopiu.com/userImages/img633616772b41dd0.jpg',
-        'https://img.xiaopiu.com/userImages/img633416772b3eef0.jpg'
-      ],
-      images: [
-        {
-          url: '/cs',
-          label: '理赔进度设置',
-          image: '&#xe659;'
-        }, {
-          url: '/qqg',
-          label: '推修短信录入',
-          image: '&#xe617;'
-        }, {
-          url: '/fs',
-          label: '店内理赔查询',
-          image: '&#xe62b;'
-        }, {
-          url: '/sx',
-          label: '续保任务清单',
-          image: '&#xe6f9;'
-        }, {
-          url: '/dj',
-          label: '在线报价',
-          image: '&#xe681;'
-        }, {
-          url: '/jf',
-          label: '跟踪结果分类',
-          image: '&#xf00d6;'
-        }, {
-          url: '/pin',
-          label: '当日续保任务',
-          image: '&#xe664;'
-        }, {
-          url: '/quan',
-          label: '我的续保业绩',
-          image: '&#xe614;'
-        }, {
-          url: '/qian',
-          label: '店内业绩查询',
-          image: '&#xe619;'
-        }
-      ]
+      swipeImages: [],
+      images: []
     }
   },
 
+  created () {
+    this.loadSwip()
+    this.loadNine()
+  },
+
   methods: {
+    loadSwip () {
+      http.Get('/dealer/images', {}).then(res => {
+        this.swipeImages = res.data
+      }).catch(err => {
+        console.log(err)
+      })
+    },
+    loadNine () {
+      http.Post('/dealer/nine', {}).then(res => {
+        this.images = res.data
+      }).catch(err => {
+        console.log(err)
+      })
+    },
+
     goToContent (path) {
       if (path === '/cs') {
         this.$router.push({path: '/cs'})
@@ -102,23 +80,23 @@ export default {
   padding-top: 0.5%;
   margin-left: 1%;
   margin-right: 1%;
+
 }
-.content-container .box {
-  width: 32%;
-  border-radius: 2%;
-  float: left;
-  text-align: center;
-  position: relative;
+
+.mui-content>.mui-table-view:first-child {
+    margin-top: 0px;
 }
-.content-container .iconfont {
-  margin-top: 5px;
-  font-size: 30px;
-  color: chocolate;
+
+.mui-grid-view.mui-grid-9 {
+  background-color: #fff;
 }
-.content-container p {
-  margin-top: .3rem;
-  font-size: .6rem;
-  color: #666;
+
+.mui-grid-view.mui-grid-9 .mui-table-view-cell {
+  padding: 10px 0px;
+}
+
+.iconfont {
+  font-size: 35px;
 }
 
 /deep/ .van-panel {

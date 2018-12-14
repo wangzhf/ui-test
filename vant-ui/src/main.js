@@ -9,6 +9,9 @@ import '../static/iconfont/iconfont.css'
 import Vant from 'vant'
 import 'vant/lib/index.css'
 
+// mock
+import './mock'
+
 Vue.use(Vant)
 
 Vue.config.productionTip = false
