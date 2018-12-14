@@ -11,47 +11,47 @@ const swipeImages = [
 
 const images = [
   {
-    url: '/cs',
+    url: '/dealer/claimProgress',
     label: '理赔进度设置',
     image: '&#xe659;',
     color: '#f85a39'
   }, {
-    url: '/qqg',
+    url: '/dealer/claimProgress',
     label: '推修短信录入',
     image: '&#xe617;',
     color: '#c8b939'
   }, {
-    url: '/fs',
+    url: '/dealer/claimProgress',
     label: '店内理赔查询',
     image: '&#xe62b;',
     color: '#ff5733'
   }, {
-    url: '/sx',
+    url: '/dealer/claimProgress',
     label: '续保任务清单',
     image: '&#xe6f9;',
     color: '#e3780b'
   }, {
-    url: '/dj',
+    url: '/dealer/claimProgress',
     label: '在线报价',
     image: '&#xe681;',
     color: '#ffeb3b'
   }, {
-    url: '/jf',
+    url: '/dealer/claimProgress',
     label: '跟踪结果分类',
     image: '&#xf00d6;',
     color: '#fc8104'
   }, {
-    url: '/pin',
+    url: '/dealer/claimProgress',
     label: '当日续保任务',
     image: '&#xe664;',
     color: '#a5d63f'
   }, {
-    url: '/quan',
+    url: '/dealer/claimProgress',
     label: '我的续保业绩',
     image: '&#xe614;',
     color: '#468d23'
   }, {
-    url: '/qian',
+    url: '/dealer/claimProgress',
     label: '店内业绩查询',
     image: '&#xe619;',
     color: '#57e710'

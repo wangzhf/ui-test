@@ -1,6 +1,7 @@
 import Vue from 'vue'
 import Router from 'vue-router'
-import DealerHome from '@/components/dealer/Home'
+import DealerHome from '@/views/dealer/Home'
+import ClaimProgress from '@/views/dealer/claimProgress'
 
 Vue.use(Router)
 
@@ -16,6 +17,11 @@ export default new Router({
       path: '/dealer/home',
       name: 'DealerHome',
       component: DealerHome
+    },
+    {
+      path: '/dealer/claimProgress',
+      name: 'ClaimProgress',
+      component: ClaimProgress
     }
   ]
 })

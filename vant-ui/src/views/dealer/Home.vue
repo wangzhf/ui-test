@@ -15,10 +15,10 @@
             :key="index"
             class="mui-table-view-cell mui-media mui-col-xs-4 mui-col-sm-4"
           >
-            <a href="#">
+            <router-link :to="img.url">
               <i class="icon iconfont" :style="{color: img.color}" v-html="img.image"></i>
               <div class="mui-media-body">{{img.label}}</div>
-            </a>
+            </router-link>
           </li>
         </ul>
       </div>
@@ -27,11 +27,7 @@
 </template>
 
 <script>
-import Vue from 'vue'
-import { Lazyload } from 'vant'
 import http from '@/api'
-
-Vue.use(Lazyload, {})
 
 export default {
   name: 'Home',
@@ -58,8 +54,10 @@ export default {
     loadNine () {
       http.Post('/dealer/nine', {}).then(res => {
         this.images = res.data
+        // this.$toast('请求成功')
       }).catch(err => {
         console.log(err)
+        this.$toast('请求失败')
       })
     },
 
